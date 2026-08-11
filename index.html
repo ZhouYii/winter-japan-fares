@@ -21,6 +21,18 @@ body{margin:0;padding:24px 18px 40px;background:var(--bg);color:var(--ink);
      font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
 .wrap{max-width:1040px;margin:0 auto}
 h1{font-size:21px;margin:0 0 2px;letter-spacing:-.01em}
+.head{display:flex;align-items:flex-start;gap:12px;justify-content:space-between}
+/* Freshness is the thing you can't judge on a phone, so it sits next to the
+   title rather than in the footer, and doubles as the re-fetch control. */
+#refresh{flex:none;display:flex;align-items:center;gap:7px;cursor:pointer;
+         background:var(--card);color:var(--dim);border:1px solid var(--line);
+         border-radius:99px;padding:7px 13px;font:inherit;font-size:12px;
+         line-height:1;-webkit-tap-highlight-color:transparent}
+#refresh:active{transform:scale(.97)}
+#refresh.stale{color:var(--up);border-color:var(--up)}
+.ricon{font-size:14px}
+#refresh.busy .ricon{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 h2{font-size:13px;margin:0 0 3px;font-weight:600}
 .sub{color:var(--dim);font-size:13px}
 .muted{color:var(--muted);font-size:12px}
@@ -80,12 +92,20 @@ if ('serviceWorker' in navigator) {
 </script>
 </head><body><div class="wrap">
 
-<h1>Winter Japan fares</h1>
-<div class="sub">2026-12-18 → 2027-01-09 ·
-2 adults · economy · <b>every price is per person</b>,
-for a 2-seat booking</div>
+<div class="head">
+  <div>
+    <h1>Winter Japan fares</h1>
+    <div class="sub">2026-12-18 → 2027-01-09 ·
+    2 adults · economy ·
+    <b>every price is per person</b>, for a 2-seat booking</div>
+  </div>
+  <button id="refresh" type="button" title="Re-fetch the published page">
+    <span id="age" data-updated="2026-08-11T12:29:14">checking…</span>
+    <span class="ricon" aria-hidden="true">⟳</span>
+  </button>
+</div>
 
-<div class="tiles"><div class='tile win'><div class='rt'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo<span class='tag'>cheapest</span></div><div class='muted'>nonstop only</div><div class='price'>$2,006</div><div class='muted'>$4,013 total for 2 · nonstop · 11h20</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</div><div class='muted'>nonstop only</div><div class='price'>$2,586</div><div class='muted'>$5,173 total for 2 · nonstop · 12h20</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,295</div><div class='muted'>$4,590 total for 2 · 2 stops · 18h49</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s5)'></span>SJC → Tokyo</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>nothing meets this rule</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s6)'></span>SJC → Osaka</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>nothing meets this rule</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,866</div><div class='muted'>$5,733 total for 2 · 2 stops · 19h39</div></div></div>
+<div class="tiles"><div class='tile win'><div class='rt'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo<span class='tag'>cheapest</span></div><div class='muted'>nonstop only</div><div class='price'>$2,006</div><div class='muted'>$4,013 total for 2</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</div><div class='muted'>nonstop only</div><div class='price'>$2,586</div><div class='muted'>$5,173 total for 2</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,295</div><div class='muted'>$4,590 total for 2</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s5)'></span>SJC → Tokyo</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>no data under this rule yet</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s6)'></span>SJC → Osaka</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>no data under this rule yet</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,866</div><div class='muted'>$5,733 total for 2</div></div></div>
 
 <div class="card">
   <h2>Cheapest fare found each day</h2>
@@ -102,7 +122,32 @@ for a 2-seat booking</div>
 <th class="num">High</th><th class="num">Samples</th></tr>
 <tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0ZPcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTRk9CAgEBSAGYAQE=&hl=en-US&curr=USD'>SFO → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0pDcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTSkNCAgEBSAGYAQE=&hl=en-US&curr=USD'>SJC → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,866</td><td class='num'>$2,866</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>5</td></tr></table></div></div>
 
-<div class="foot">Updated Tue 11 Aug, 12:01. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
+<div class="foot">Updated Tue 11 Aug, 12:29. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
 runs at
 08:00, 14:00 and 21:00 · this tracker only watches, booking is always manual.</div>
-</div></body></html>
+</div>
+<script>
+(function(){
+  var el=document.getElementById('age'), btn=document.getElementById('refresh');
+  if(!el||!btn) return;
+  var t=new Date(el.dataset.updated);
+  function tick(){
+    var m=Math.round((Date.now()-t.getTime())/60000);
+    var s = m<1 ? 'just now'
+          : m<60 ? m+' min ago'
+          : m<1440 ? Math.round(m/60)+'h ago'
+          : Math.round(m/1440)+'d ago';
+    el.textContent=s;
+    // The tracker samples three times a day, so anything past ~9h means a run
+    // was missed - worth showing rather than quietly looking current.
+    btn.classList.toggle('stale', m>540);
+  }
+  tick(); setInterval(tick,30000);
+  btn.addEventListener('click',function(){
+    btn.classList.add('busy');
+    // Bypass any cached copy; the service worker is network-first but a hard
+    // reload removes all doubt.
+    location.reload();
+  });
+})();
+</script></body></html>
