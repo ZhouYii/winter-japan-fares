@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Winter Japan fares</title>
+<style>
+:root{--bg:#f9f9f7;--card:#fff;--ink:#0b0b0b;--dim:#52514e;--muted:#898781;
+      --line:#e1e0d9;--axis:#c3c2b7;--down:#006300;--up:#a8331f;--accent:#2a78d6;
+      --s1:#2a78d6;--s2:#eb6834;--s3:#1baf7a;--s4:#eda100;--s5:#e87ba4;--s6:#4a3aa7}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0d0d0d;--card:#1c1f25;--ink:#fff;--dim:#c3c2b7;--muted:#898781;
+    --line:#2c2c2a;--axis:#383835;--down:#0ca30c;--up:#e2705a;--accent:#3987e5;
+    --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#9085e9}}
+:root[data-theme="dark"]{
+  --bg:#0d0d0d;--card:#1c1f25;--ink:#fff;--dim:#c3c2b7;--muted:#898781;
+  --line:#2c2c2a;--axis:#383835;--down:#0ca30c;--up:#e2705a;--accent:#3987e5;
+  --s1:#3987e5;--s2:#d95926;--s3:#199e70;--s4:#c98500;--s5:#d55181;--s6:#9085e9}
+*{box-sizing:border-box}
+body{margin:0;padding:24px 18px 40px;background:var(--bg);color:var(--ink);
+     font-family:system-ui,-apple-system,"Segoe UI",sans-serif;line-height:1.5}
+.wrap{max-width:1040px;margin:0 auto}
+h1{font-size:21px;margin:0 0 2px;letter-spacing:-.01em}
+h2{font-size:13px;margin:0 0 3px;font-weight:600}
+.sub{color:var(--dim);font-size:13px}
+.muted{color:var(--muted);font-size:12px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;
+      padding:16px 18px;margin-top:16px}
+
+/* zone 1 */
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(196px,1fr));
+       gap:10px;margin-top:16px}
+.tile{background:var(--card);border:1px solid var(--line);border-radius:12px;
+      padding:13px 15px}
+.tile.win{border-color:var(--accent);box-shadow:0 0 0 1px var(--accent)}
+.tile.off{opacity:.62}
+.rt{display:flex;align-items:center;gap:7px;font-size:13px;font-weight:600}
+.dot{width:9px;height:9px;border-radius:50%;flex:none}
+.price{font-size:27px;font-weight:600;margin-top:7px;letter-spacing:-.02em}
+.delta{font-size:13px;font-weight:600;margin-left:7px;letter-spacing:0}
+.down{color:var(--down)}.up{color:var(--up)}
+.tag{display:inline-block;background:var(--accent);color:#fff;font-size:10px;
+     padding:1px 7px;border-radius:99px;margin-left:auto;letter-spacing:.02em}
+
+/* zone 2 */
+.chart-wrap{position:relative;overflow-x:auto}
+svg.chart{display:block;width:100%;height:300px;min-width:460px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;margin-top:10px}
+.lg{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--dim)}
+.empty{padding:44px 10px;text-align:center;color:var(--muted);font-size:13px}
+#tip{position:absolute;pointer-events:none;opacity:0;transition:opacity .1s;
+     background:var(--card);border:1px solid var(--axis);border-radius:9px;
+     padding:8px 10px;font-size:12px;box-shadow:0 4px 14px rgba(0,0,0,.16);
+     min-width:150px;z-index:5}
+#tip .d{color:var(--muted);margin-bottom:5px}
+#tip .r{display:flex;align-items:center;gap:6px;justify-content:space-between}
+#tip .r b{font-variant-numeric:tabular-nums;font-weight:600}
+
+/* zone 3 */
+table{width:100%;border-collapse:collapse;font-size:13px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+th{color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;
+   letter-spacing:.04em}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums}
+tr:last-child td{border-bottom:none}
+a{color:var(--accent)}
+.foot{color:var(--muted);font-size:12px;margin-top:18px}
+</style><link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#2a78d6">
+<meta name="robots" content="noindex, nofollow">
+<link rel="apple-touch-icon" href="icon-180.png">
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function () {
+    navigator.serviceWorker.register('sw.js').catch(function () {});
+  });
+}
+</script>
+</head><body><div class="wrap">
+
+<h1>Winter Japan fares</h1>
+<div class="sub">2026-12-18 → 2027-01-09 ·
+2 adults · economy · <b>every price is per person</b>,
+for a 2-seat booking</div>
+
+<div class="tiles"><div class='tile win'><div class='rt'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo<span class='tag'>cheapest</span></div><div class='muted'>nonstop only</div><div class='price'>$2,006</div><div class='muted'>$4,013 total for 2</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</div><div class='muted'>nonstop only</div><div class='price'>$2,586</div><div class='muted'>$5,173 total for 2</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,295</div><div class='muted'>$4,590 total for 2</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s5)'></span>SJC → Tokyo</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>no data under this rule yet</div></div><div class='tile off'><div class='rt'><span class='dot' style='background:var(--s6)'></span>SJC → Osaka</div><div class='muted'>nonstop only</div><div class='price'>—</div><div class='muted'>no data under this rule yet</div></div><div class='tile'><div class='rt'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</div><div class='muted'>under 20h</div><div class='price'>$2,934</div><div class='muted'>$5,867 total for 2</div></div></div>
+
+<div class="card">
+  <h2>Cheapest fare found each day</h2>
+  <div class="muted" style="margin-bottom:10px">Per person, lowest price seen
+  across that day's runs</div>
+  <div class="chart-wrap"><div class='empty'>Collecting — the first trend line appears once there are two days of history.<br>1 day so far; the tracker samples at 08:00, 14:00 and 21:00.</div><div id="tip"></div></div>
+  <div class="legend"><span class='lg'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo</span><span class='lg'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</span><span class='lg'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</span><span class='lg'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</span></div>
+</div>
+
+<div class="card" style="padding:0;overflow:hidden">
+<table><tr><th>Route</th><th>Rule</th><th class="num">Today</th>
+<th class="num">All-time low</th><th class="num">7d median</th>
+<th class="num">High</th><th class="num">Samples</th></tr>
+<tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0ZPcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTRk9CAgEBSAGYAQE=&hl=en-US&curr=USD'>SFO → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0pDcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTSkNCAgEBSAGYAQE=&hl=en-US&curr=USD'>SJC → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>4</td></tr></table></div>
+
+<div class="foot">Updated Tue 11 Aug, 11:40. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
+Refreshes itself every 15 minutes · runs at 08:00, 14:00 and 21:00 ·
+this tracker only watches, booking is always manual.</div>
+</div></body></html>
