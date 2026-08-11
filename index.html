@@ -56,8 +56,10 @@ svg.chart{display:block;width:100%;height:300px;min-width:460px}
 #tip .r{display:flex;align-items:center;gap:6px;justify-content:space-between}
 #tip .r b{font-variant-numeric:tabular-nums;font-weight:600}
 
-/* zone 3 */
-table{width:100%;border-collapse:collapse;font-size:13px}
+/* zone 3 — the table scrolls inside its own card rather than being clipped;
+   on a phone the right-hand columns were being cut off by overflow:hidden */
+.tscroll{overflow-x:auto;border-radius:12px}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
 th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
 th{color:var(--muted);font-weight:500;font-size:11px;text-transform:uppercase;
    letter-spacing:.04em}
@@ -93,13 +95,14 @@ for a 2-seat booking</div>
   <div class="legend"><span class='lg'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo</span><span class='lg'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</span><span class='lg'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</span><span class='lg'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</span></div>
 </div>
 
-<div class="card" style="padding:0;overflow:hidden">
+<div class="card" style="padding:0">
+<div class="tscroll">
 <table><tr><th>Route</th><th>Rule</th><th class="num">Today</th>
 <th class="num">All-time low</th><th class="num">7d median</th>
 <th class="num">High</th><th class="num">Samples</th></tr>
-<tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0ZPcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTRk9CAgEBSAGYAQE=&hl=en-US&curr=USD'>SFO → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0pDcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTSkNCAgEBSAGYAQE=&hl=en-US&curr=USD'>SJC → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>4</td></tr></table></div>
+<tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0ZPcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTRk9CAgEBSAGYAQE=&hl=en-US&curr=USD'>SFO → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>4</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0pDcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTSkNCAgEBSAGYAQE=&hl=en-US&curr=USD'>SJC → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>4</td></tr></table></div></div>
 
-<div class="foot">Updated Tue 11 Aug, 11:40. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
-Refreshes itself every 15 minutes · runs at 08:00, 14:00 and 21:00 ·
-this tracker only watches, booking is always manual.</div>
+<div class="foot">Updated Tue 11 Aug, 11:58. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
+runs at
+08:00, 14:00 and 21:00 · this tracker only watches, booking is always manual.</div>
 </div></body></html>
