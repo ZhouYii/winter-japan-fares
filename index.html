@@ -100,7 +100,7 @@ if ('serviceWorker' in navigator) {
     <b>every price is per person</b>, for a 2-seat booking</div>
   </div>
   <button id="refresh" type="button" title="Re-fetch the published page">
-    <span id="age" data-updated="2026-08-11T12:29:14">checking…</span>
+    <span id="age" data-updated="2026-08-11T12:32:13">checking…</span>
     <span class="ricon" aria-hidden="true">⟳</span>
   </button>
 </div>
@@ -111,7 +111,7 @@ if ('serviceWorker' in navigator) {
   <h2>Cheapest fare found each day</h2>
   <div class="muted" style="margin-bottom:10px">Per person, lowest price seen
   across that day's runs</div>
-  <div class="chart-wrap"><div class='empty'>Collecting — the first trend line appears once there are two days of history.<br>1 day so far; the tracker samples at 08:00, 14:00 and 21:00.</div><div id="tip"></div></div>
+  <div class="chart-wrap"><div class='empty'>Collecting — the first trend line appears once there are two days of history.<br>1 day so far; the tracker checks every 3 hours, 07:00–22:00.</div><div id="tip"></div></div>
   <div class="legend"><span class='lg'><span class='dot' style='background:var(--s1)'></span>SFO → Tokyo</span><span class='lg'><span class='dot' style='background:var(--s2)'></span>SFO → Osaka</span><span class='lg'><span class='dot' style='background:var(--s3)'></span>SFO → Fukuoka</span><span class='lg'><span class='dot' style='background:var(--s4)'></span>SJC → Fukuoka</span></div>
 </div>
 
@@ -122,15 +122,16 @@ if ('serviceWorker' in navigator) {
 <th class="num">High</th><th class="num">Samples</th></tr>
 <tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>$2,006</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTRk9yBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0ZPQgIBAUgBmAEB&hl=en-US&curr=USD'>SFO → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>$2,586</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0ZPcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTRk9CAgEBSAGYAQE=&hl=en-US&curr=USD'>SFO → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>$2,295</td><td class='num'>5</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDVFlPGhwSCjIwMjctMDEtMDkoAGoFEgNUWU9yBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Tokyo</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhwSCjIwMjYtMTItMTgoAGoFEgNTSkNyBRIDT1NBGhwSCjIwMjctMDEtMDkoAGoFEgNPU0FyBRIDU0pDQgIBAUgBmAEB&hl=en-US&curr=USD'>SJC → Osaka</a></td><td class='muted'>nonstop only</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>—</td><td class='num'>0</td></tr><tr><td><a href='https://www.google.com/travel/flights/search?tfs=GhoSCjIwMjYtMTItMThqBRIDU0pDcgUSA0ZVSxoaEgoyMDI3LTAxLTA5agUSA0ZVS3IFEgNTSkNCAgEBSAGYAQE=&hl=en-US&curr=USD'>SJC → Fukuoka</a></td><td class='muted'>under 20h</td><td class='num'>$2,866</td><td class='num'>$2,866</td><td class='num'>$2,934</td><td class='num'>$2,934</td><td class='num'>5</td></tr></table></div></div>
 
-<div class="foot">Updated Tue 11 Aug, 12:29. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
-runs at
-08:00, 14:00 and 21:00 · this tracker only watches, booking is always manual.</div>
+<div class="foot">Updated Tue 11 Aug, 12:32. No buy target set yet — pick one in config.yaml once the history has a shape.<br>
+checks
+every 3 hours, 07:00–22:00 · this tracker only watches, booking is always
+manual.</div>
 </div>
 <script>
 (function(){
   var el=document.getElementById('age'), btn=document.getElementById('refresh');
   if(!el||!btn) return;
-  var t=new Date(el.dataset.updated);
+  var t=new Date(el.dataset.updated), STALE=600;
   function tick(){
     var m=Math.round((Date.now()-t.getTime())/60000);
     var s = m<1 ? 'just now'
@@ -138,9 +139,9 @@ runs at
           : m<1440 ? Math.round(m/60)+'h ago'
           : Math.round(m/1440)+'d ago';
     el.textContent=s;
-    // The tracker samples three times a day, so anything past ~9h means a run
-    // was missed - worth showing rather than quietly looking current.
-    btn.classList.toggle('stale', m>540);
+    // Past the overnight gap means a run was actually missed - worth flagging
+    // rather than quietly looking current.
+    btn.classList.toggle('stale', m>STALE);
   }
   tick(); setInterval(tick,30000);
   btn.addEventListener('click',function(){
