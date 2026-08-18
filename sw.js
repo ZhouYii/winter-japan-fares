@@ -5,13 +5,15 @@
  *   index.html  network-first  — a fare tracker that serves a cached page is
  *                                worse than one that fails, because a stale
  *                                price looks exactly like a current one. The
- *                                cache is only the offline fallback.
+ *                                cache is only the offline fallback, and the
+ *                                fetch is no-store so the HTTP cache cannot
+ *                                answer it either.
  *   everything  cache-first    — icons and the manifest never change.
  *
  * The cached copy is stamped, so an offline view can say how old it is rather
  * than pretending to be live.
  */
-const CACHE = 'japan-fares-v1';
+const CACHE = 'japan-fares-v2';
 const SHELL = ['./icon-192.png', './icon-512.png', './manifest.webmanifest'];
 
 self.addEventListener('install', (event) => {
@@ -38,7 +40,12 @@ self.addEventListener('fetch', (event) => {
 
   if (isPage) {
     event.respondWith(
-      fetch(req)
+      // no-store, not a bare fetch(): GitHub Pages serves the page with
+      // max-age=600, and a plain fetch here is allowed to be answered from the
+      // HTTP cache - so "network-first" quietly became "up to ten minutes
+      // stale, first". The whole point of this branch is that a fare page must
+      // never show a cached number as if it were current.
+      fetch(req, { cache: 'no-store' })
         .then((res) => {
           const copy = res.clone();
           caches.open(CACHE).then((c) => c.put('./index.html', copy));
